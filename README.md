@@ -18,8 +18,8 @@ dut_A_blocking/     DUT firmware, design A
 dut_B_nonblocking/  DUT firmware, design B
 dut_C_freertos/     DUT firmware, design C
 python/             rekam.py (serial recorder), analisis.py (analysis), requirements.txt
-data/               raw CSV recordings (if included)
-hasil/              analysis output: tables, statistics, boxplot (if included)
+python/data/        raw CSV recordings
+python/hasil/       analysis output: tables, statistics, boxplot
 ```
 
 Variable and comment names in the code are in Indonesian (`penguji` = tester, `kejadian` = event, `respons` = response, `skenario` = scenario).
@@ -67,12 +67,13 @@ For the calibration (loopback) test, disconnect the DUT and connect tester GPIO3
 
 5. **Record.** Install the dependencies (`pip install -r python/requirements.txt`) and run, for example for design A in scenario S1:
    ```
-   python python/rekam.py --port COM7 --desain A --skenario S1
+cd python
+python rekam.py --port COM7 --desain A --skenario S1
    ```
    Replace `COM7` with the tester's serial port. Use `--kalibrasi` for the loopback calibration. Repeat for each design and scenario. Each run sends 1000 pulses (20 ms wide, random gap 50–500 ms, fixed seed 42, so the pulse sequence is identical in every run).
 6. **Analyse.**
    ```
-   python python/analisis.py --data data --hasil hasil
+   python analisis.py --data data --hasil hasil
    ```
    This produces the latency table, the MER and jitter table, the statistical tests, and the boxplot.
 
